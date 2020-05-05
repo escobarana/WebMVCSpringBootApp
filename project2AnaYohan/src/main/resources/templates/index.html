@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<link rel="stylesheet" 
+		th:href="@{/css/styles.css}" type="text/css"/>
+	<link rel="stylesheet" 
+		th:href="@{/css/flag-icon-css.css}" type="text/css"/>
+	<title>Welcome</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+	<header>
+	
+		<nav> 
+		    <ul id="menu">
+				<li><a class="button" th:href="@{'/bids'}"><span th:text="#{bid.allbids}">All bids</span></a></li>
+				<li><a class="button" th:href="@{'/jobs'}"><span th:text="#{job.alljobs}">All jobs</span></a></li>
+				<li><a class="button" th:href="@{'/activejobs'}"><span th:text="#{job.activejobs}">Active jobs</span></a></li>
+				<li><a class="button" th:href="@{'/inactivejobs'}"><span th:text="#{job.inactivejobs}">Inactive jobs</span></a></li>
+				<li class="login" sec:authorize="!isAuthenticated()"><a class="button" th:href="@{'/login'}"><span th:text="#{form.login}">Log In</span></a></li>							
+				<li class="logout" sec:authorize="isAuthenticated()"><span sec:authentication="name">Username</span><a class="button" th:href="@{'/logout'}"><span th:text="#{form.logout}">Log Out</span></a></li>
+				<li sec:authorize="!isAuthenticated()"><a class="button" th:href="@{'/newuser'}"><span th:text="#{form.register}">Register</span></a></li>
+				<li sec:authorize="isAuthenticated()"><a class="button" th:href="@{'/user'}"><span th:text="#{form.user}">Home Page</span></a></li>					
+			</ul>
+		</nav>
+	
+	</header>
+	
+	<main>
+		<h1><span th:text="#{index.welcome}">Welcome!</span></h1>
+		<br>
+		<br>
+		<h3><span th:text="#{index.description}">Description!</span></h3>
+	</main>
+	
+	<footer>
+	<a th:href="@{/?lang=fr}"><i class="flag-icon flag-icon-fr"></i></a>
+		<a th:href="@{/?lang=ie}"><i class="flag-icon flag-icon-ie"></i></a>&nbsp;
+		<a th:href="@{/?lang=es}"><i class="flag-icon flag-icon-es"></i></a>&nbsp;
+		
+	</footer>
+	
+</body>
+</html>

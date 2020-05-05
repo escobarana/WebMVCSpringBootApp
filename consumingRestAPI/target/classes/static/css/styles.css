@@ -1,0 +1,18 @@
+body{ width: 75%; margin: auto; }
+header{
+	background-color:#AEA9BA;
+}
+body{
+    background-color: #FCF7FF;
+    font-family: sans-serif;
+	height: 150vh;
+}
+h1,h2{
+	color: #494454;
+}
+
+/* --- TABLE --- */
+table, th, td{
+    margin: 10%;
+    border: 1px;
+}

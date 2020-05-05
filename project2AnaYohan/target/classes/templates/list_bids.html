@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<link rel="stylesheet" 
+		th:href="@{/css/styles.css}" type="text/css"/>
+	<link rel="stylesheet" 
+		th:href="@{/css/flag-icon-css.css}" type="text/css"/>
+	<title>Bids</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+	<header>
+	
+		<nav> 
+		    <ul id="menu">
+				<li class="selected"><a class="button" th:href="@{'/bids'}"><span th:text="#{bid.allbids}">All bids</span></a></li>
+				<li><a class="button" th:href="@{'/jobs'}"><span th:text="#{job.alljobs}">All jobs</span></a></li>
+				<li><a class="button" th:href="@{'/activejobs'}"><span th:text="#{job.activejobs}">Active jobs</span></a></li>
+				<li><a class="button" th:href="@{'/inactivejobs'}"><span th:text="#{job.inactivejobs}">Inactive jobs</span></a></li>
+				<li class="login" sec:authorize="!isAuthenticated()"><a class="button" th:href="@{'/login'}"><span th:text="#{form.login}">Log In</span></a></li>							
+				<li class="logout" sec:authorize="isAuthenticated()"><span sec:authentication="name">No Name</span><a class="button" th:href="@{'/logout'}"><span th:text="#{form.logout}">Log Out</span></a></li>
+				<li sec:authorize="!isAuthenticated()"><a class="button" th:href="@{'/newuser'}"><span th:text="#{form.register}">Register</span></a></li>
+				<li sec:authorize="isAuthenticated()"><a class="button" th:href="@{'/user'}"><span th:text="#{form.user}">Home Page</span></a></li>		
+			</ul>
+		</nav>
+	
+	</header>
+	
+	<main>
+		<h1><span th:text="#{bid.listbids}">List of bids</span></h1>
+		<br>
+		<br>
+		<table>
+		<tr>
+			<th th:text="#{bid.id}">ID</th>
+			<th th:text="#{bid.value}">Value</th>
+			<th th:text="#{bid.job}">Job</th>
+			<th th:text="#{bid.user}">User</th>
+		</tr>
+		
+		<tr th:each="bid : ${bids}">
+			<td th:text="${bid.bidId}">ID</td>
+			<td th:text="${bid.bidValue}">VALUE</td>
+			<td th:text="${bid.job.jobName}">JOB</td>
+			<td th:text="${bid.user.userName}">USER</td>
+		</tr>
+		</table>
+	</main>
+	
+	<footer>
+		<a th:href="@{/bids/?lang=es}"><i class="flag-icon flag-icon-es"></i></a>&nbsp;
+		<a th:href="@{/bids/?lang=fr}"><i class="flag-icon flag-icon-fr"></i></a>&nbsp;
+		<a th:href="@{/bids/?lang=ie}"><i class="flag-icon flag-icon-ie"></i></a>
+	</footer>
+</body>
+</html>

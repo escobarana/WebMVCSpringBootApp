@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<link rel="stylesheet" 
+			th:href="@{/css/styles.css}" type="text/css"/>
+		<title>Active jobs</title>
+		<meta charset="utf-8"/>
+	</head>
+	
+	<body>
+	<h2>Your bids</h2>
+			<table>
+			<tr>
+				<th >ID</th>
+				<th >Value</th>
+				<th >Job</th>
+			</tr>
+			
+			<tr th:each="bid : ${bids}">
+				<td th:text="${bid.bidId}">ID</td>
+				<td th:text="${bid.bidValue}">VALUE</td>
+				<td th:text="${bid.job.jobName}">Job</td>
+			</tr>
+			</table>
+	</body>
+</html>

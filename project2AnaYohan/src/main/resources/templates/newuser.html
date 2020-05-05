@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<link rel="stylesheet" 
+			th:href="@{/css/styles.css}" type="text/css"/>
+		<link rel="stylesheet" 
+			th:href="@{/css/flag-icon-css.css}" type="text/css"/>
+		<title>Registration</title>
+		<meta charset="utf-8"/>
+	</head>
+	<body>
+	
+	<header>
+	
+		<nav> 
+		    <ul id="menu">
+				<li><a class="button" th:href="@{'/bids'}"><span th:text="#{bid.allbids}">All bids</span></a></li>
+				<li><a class="button" th:href="@{'/jobs'}"><span th:text="#{job.alljobs}">All jobs</span></a></li>
+				<li><a class="button" th:href="@{'/activejobs'}"><span th:text="#{job.activejobs}">Active jobs</span></a></li>
+				<li><a class="button" th:href="@{'/inactivejobs'}"><span th:text="#{job.inactivejobs}">Inactive jobs</span></a></li>
+				<li class="login" sec:authorize="!isAuthenticated()"><a class="button" th:href="@{'/login'}"><span th:text="#{form.login}">Log In</span></a></li>							
+				<li class="logout" sec:authorize="isAuthenticated()"><a class="button" th:href="@{'/logout'}"><span th:text="#{form.logout}">Log Out</span></a></li>
+				<li class="selected" sec:authorize="!isAuthenticated()"><a class="button" th:href="@{'/newuser'}"><span th:text="#{form.register}">Register</span></a></li>
+			</ul>
+		</nav>
+	</header>
+		
+		<main>
+			<h1><span th:text="#{user.registeruser}">Register a user</span></h1>
+			
+			<h3 class="error" th:if="${duplicate}" th:text="#{user.duplicate}">Error</h3>
+			
+			<fieldset class="form-style">
+				<form method="post" th:action="@{/newuser}" th:object="${userForm}">
+					<label for="userName" th:text="#{user.name}" ></label>
+					<input id="userName" type="text" th:field="*{userName}" required/>
+					<br>
+					<label for="userLastname" th:text="#{user.lastname}" ></label>
+					<input id="userLastname" type="text" th:field="*{userLastname}" required/>
+					<br>
+					<label for="userEmail" th:text="#{user.email}" ></label>
+					<input id="userEmail" type="email" th:field="*{userEmail}" required/>
+					<br>
+					<label for="userPassword" th:text="#{user.password}" ></label>
+					<input id="userPassword" type="password" th:field="*{userPassword}" pattern=".{8,}" required />
+					<br>
+					<label for="userPhone" th:text="#{user.phone}" ></label>
+					<input id="userPhone" type="number" th:field="*{userPhone}" required/>
+					<br>
+					<input type="submit" th:value="#{user.add}"/>
+					<input type="reset" th:value="#{form.cancel}">
+				</form>
+			</fieldset>
+		</main>
+		
+		<footer>
+			<a th:href="@{/newuser?lang=ie}"><i class="flag-icon flag-icon-ie"></i></a>&nbsp;
+			<a th:href="@{/newuser?lang=es}"><i class="flag-icon flag-icon-es"></i></a>&nbsp;
+			<a th:href="@{/newuser?lang=fr}"><i class="flag-icon flag-icon-fr"></i></a>
+		</footer>
+	</body>
+</html>

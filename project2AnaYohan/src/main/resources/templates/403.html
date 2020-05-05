@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" 
+		th:href="@{/css/styles.css}" type="text/css"/>
+	<link rel="stylesheet" 
+		th:href="@{/css/flag-icon-css.css}" type="text/css"/>
+	<title>Access Denied</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+	<header>
+	</header>
+	
+	<main>
+		<h1><span th:text="#{403.message}">You do not have permission to access this page!</span></h1>
+	</main>
+	
+	<footer>
+		<a th:href="@{/?lang=ie}"><i class="flag-icon flag-icon-ie"></i></a>&nbsp;
+		<a th:href="@{/?lang=es}"><i class="flag-icon flag-icon-es"></i></a>&nbsp;
+		<a th:href="@{/?lang=fr}"><i class="flag-icon flag-icon-fr"></i></a>
+	</footer>
+	
+</body>
+</html>

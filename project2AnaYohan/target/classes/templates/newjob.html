@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<link rel="stylesheet" 
+			th:href="@{/css/styles.css}" type="text/css"/>
+		<link rel="stylesheet" 
+			th:href="@{/css/flag-icon-css.css}" type="text/css"/>
+		<title>New Job</title>
+		<meta charset="utf-8"/>
+	</head>
+	<body>
+		
+		<header>
+	
+		<nav> 
+		    <ul id="menu">
+				<li><a class="button" th:href="@{'/bids'}"><span th:text="#{bid.allbids}">All bids</span></a></li>
+				<li><a class="button" th:href="@{'/jobs'}"><span th:text="#{job.alljobs}">All jobs</span></a></li>
+				<li><a class="button" th:href="@{'/activejobs'}"><span th:text="#{job.activejobs}">Active jobs</span></a></li>
+				<li><a class="button" th:href="@{'/inactivejobs'}"><span th:text="#{job.inactivejobs}">Inactive jobs</span></a></li>					
+				<li class="logout" sec:authorize="isAuthenticated()"><span sec:authentication="name">No Name</span><a class="button" th:href="@{'/logout'}"><span th:text="#{form.logout}">Log Out</span></a></li>
+				<li sec:authorize="isAuthenticated()"><a class="button" th:href="@{'/user'}"><span th:text="#{form.user}">Home Page</span></a></li>		
+			</ul>
+		</nav>
+	
+	</header>
+		
+		<main>
+			<h1><span th:text="#{job.addjob}">Add a Job</span></h1>
+			<h3 class="error" th:if="${duplicate}" th:text="">Error</h3>
+			<fieldset class="form-style">
+				<form method="post" th:action="@{'/user/newjob'}" th:object="${jobForm}">
+					<label for="jobName" th:text="#{job.name}"></label>
+					<input id="jobName" type="text" th:field="*{jobName}"/>
+					<br>
+					<label for="jobDescription" th:text="#{job.description}" ></label>
+					<input id="jobDescription" type="text" th:field="*{jobDescription}"/>
+					<br>
+					<input type="submit" th:value="#{job.add}"/>
+					<input type="reset" th:value="#{form.cancel}">
+				</form>
+			</fieldset>
+		</main>
+		
+		<footer>
+			<a th:href="@{/user/newjob?lang=ie}"><i class="flag-icon flag-icon-ie"></i></a>&nbsp;
+			<a th:href="@{/user/newjob?lang=es}"><i class="flag-icon flag-icon-es"></i></a>&nbsp;
+			<a th:href="@{/user/newjob?lang=fr}"><i class="flag-icon flag-icon-fr"></i></a>
+		</footer>
+	</body>
+</html>

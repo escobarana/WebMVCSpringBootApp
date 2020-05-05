@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css" />
+	<link rel="stylesheet" th:href="@{/css/flag-icon-css.css}" type="text/css"/>
+	<title>Welcome</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+	<header>
+	
+		<nav> 
+		    <ul id="menu">
+				<li><a class="button" th:href="@{'/bids'}"><span th:text="#{bid.allbids}">All bids</span></a></li>
+				<li><a class="button" th:href="@{'/jobs'}"><span th:text="#{job.alljobs}">All jobs</span></a></li>
+				<li><a class="button" th:href="@{'/activejobs'}"><span th:text="#{job.activejobs}">Active jobs</span></a></li>
+				<li><a class="button" th:href="@{'/inactivejobs'}"><span th:text="#{job.inactivejobs}">Inactive jobs</span></a></li>
+				<li class="login" sec:authorize="!isAuthenticated()"><a class="button" th:href="@{'/login'}"><span th:text="#{form.login}">Log In</span></a></li>							
+				<li class="logout" sec:authorize="isAuthenticated()"><span sec:authentication="name">No Name</span><a class="button" th:href="@{'/logout'}"><span th:text="#{form.logout}">Log Out</span></a></li>
+				<li sec:authorize="!isAuthenticated()"><a class="button" th:href="@{'/newuser'}"><span th:text="#{form.register}">Register</span></a></li>
+				<li class="selected" sec:authorize="isAuthenticated()"><a class="button" th:href="@{'/user'}"><span th:text="#{form.user}">Home Page</span></a></li>						
+			</ul>
+		</nav>
+
+	</header>
+	
+	<main>
+		<h1><span th:text="#{index.welcome}">Welcome </span><span th:if="${user}" th:text="${user.userName}"></span></h1>
+		<h2><span th:text="#{job.yourcreatedjobs}">Your created jobs</span>: </h2>
+		<table>
+		<tr>
+			<th th:text="#{job.id}">ID</th>
+			<th th:text="#{job.name}">Name</th>
+			<th th:text="#{job.date}">Date</th>
+			<th th:text="#{job.active}">Active?</th>
+		</tr>
+		<tr th:each="job : ${user.jobs}">
+			<td th:text="${job.jobId}">ID</td>
+			<td th:text="${job.jobName}">NAME</td>
+			<td th:text="${job.jobFirstpublished}">DATE</td>
+			<td th:text="${job.jobActive}">ACTIVE</td>
+			<td><a th:href="@{'/job/' + ${job.jobId}}"><button type="button"><span th:text="#{job.more}">More...</span></button></a></td>
+		</tr>
+		</table>
+		<a th:href="@{'/user/newjob'}"><button type="button"><span th:text="#{job.createjob}">Create new job</span></button></a><br>
+		<br>
+		<h2><span th:text="#{bid.yourbids}">Your bids</span></h2>
+		<table>
+		<tr>
+			<th th:text="#{bid.id}">ID</th>
+			<th th:text="#{bid.value}">Value</th>
+			<th th:text="#{bid.job}">Job</th>
+		</tr>
+		
+		<tr th:each="bid : ${bids}">
+			<td th:text="${bid.bidId}">ID</td>
+			<td th:text="${bid.bidValue}">VALUE</td>
+			<td th:text="${bid.job.jobName}">Job</td>
+			<td><a th:href="@{'/job/' + ${bid.job.jobId}}"><button type="button"><span th:text="#{job.more}">More...</span></button></a></td>
+		</tr>
+		</table>
+		<br>
+		<a th:href="@{'/user/newbid'}"><button type="button"><span th:text="#{bid.makebid}">Make a bid</span></button></a><br>
+	</main>
+	
+	<footer>
+	<hr>
+		<a th:href="@{/user?lang=ie}"><i class="flag-icon flag-icon-ie"></i></a>
+		<a th:href="@{/user?lang=es}"><i class="flag-icon flag-icon-es"></i></a>
+		<a th:href="@{/user?lang=fr}"><i class="flag-icon flag-icon-fr"></i></a>
+	</footer>
+	
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<link rel="stylesheet" 
+			th:href="@{/css/styles.css}" type="text/css"/>
+		<link rel="stylesheet" 
+			th:href="@{/css/flag-icon-css.css}" type="text/css"/>
+		<title>New Bid</title>
+		<meta charset="utf-8"/>
+	</head>
+	<body>
+	
+		<header>
+	
+		<nav> 
+		    <ul id="menu">
+				<li><a class="button" th:href="@{'/bids'}"><span th:text="#{bid.allbids}">All bids</span></a></li>
+				<li><a class="button" th:href="@{'/jobs'}"><span th:text="#{job.alljobs}">All jobs</span></a></li>
+				<li><a class="button" th:href="@{'/activejobs'}"><span th:text="#{job.activejobs}">Active jobs</span></a></li>
+				<li><a class="button" th:href="@{'/inactivejobs'}"><span th:text="#{job.inactivejobs}">Inactive jobs</span></a></li>						
+				<li class="logout" sec:authorize="isAuthenticated()"><span sec:authentication="name">No Name</span><a class="button" th:href="@{'/logout'}"><span th:text="#{form.logout}">Log Out</span></a></li>
+				<li class="selected" sec:authorize="isAuthenticated()"><a class="button" th:href="@{'/user'}"><span th:text="#{form.user}">Home Page</span></a></li>					
+			</ul>
+		</nav>
+	
+	</header>
+		
+		<main>
+			<h1><span th:text="#{bid.makebid}">Make a bid</span></h1>
+			<h3 class="error" th:if="${duplicate}"><span th:text="#{bid.duplicate}">Error, duplicate data</span></h3>
+			<h3 class="error" th:if="${ownjob}"><span th:text="#{bid.ownJob}">You can not bid on a job you have created</span></h3>
+			<h3 class="error" th:if="${valuezero}"><span th:text="#{bid.valuezero}">You can not bid under € 0.0</span></h3>
+			<h3 class="error" th:if="${lessvalue}"><span th:text="#{bid.lessvalue}">You have to bid less than the actual best bid</span></h3>
+			
+			<fieldset class="form-style">
+				<form method="post" th:action="@{'/user/newbid'}" th:object="${bidForm}">
+					<label for="bidValue" th:text="#{bid.value}" ></label>
+					<input id="bidValue" type="number" th:field="*{bidValue}"/>
+					<br>
+					<label for="job" th:text="#{job.choose}" ></label>
+					<select th:field="*{jobId}">
+						<option th:each="job: ${jobs}" th:text="${job.jobName}" th:value="${job.jobId}"/>
+					</select>
+					<br>
+					<input type="submit" th:value="#{bid.add}"/>
+					<input type="reset" th:value="#{form.cancel}">
+				</form>
+			</fieldset>
+		</main>
+		
+		<footer>
+			<a th:href="@{/user/newbid?lang=ie}"><i class="flag-icon flag-icon-ie"></i></a>&nbsp;
+			<a th:href="@{/user/newbid?lang=es}"><i class="flag-icon flag-icon-es"></i></a>&nbsp;
+			<a th:href="@{/user/newbid?lang=fr}"><i class="flag-icon flag-icon-fr"></i></a>
+		</footer>
+	</body>
+</html>

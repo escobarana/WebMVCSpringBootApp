@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<link rel="stylesheet" 
+			th:href="@{/css/styles.css}" type="text/css"/>
+
+		<title>Active jobs</title>
+		<meta charset="utf-8"/>
+	</head>
+	<body>
+			<h1>List of active jobs</h1>
+			<br>
+			<br>
+			<table>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Date</th>
+				<th>Active?</th>
+				<th>Post By</th>
+			</tr>
+			
+			<tr th:each="job : ${activejobs}">
+				<td th:text="${job.jobId}">ID</td>
+				<td th:text="${job.jobName}">NAME</td>
+				<td th:text="${job.jobFirstpublished}">DATE</td>
+				<td th:text="${job.jobActive}">ACTIVE</td>
+				<td th:text="${job.user.userName}">UserName</td>
+			</tr>
+			</table>
+	</body>
+</html>
